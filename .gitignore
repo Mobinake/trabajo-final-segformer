@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Data files (no subir imágenes, máscaras, ni checkpoints)
+*.tif
+*.tiff
+*.jpg
+*.jpeg
+*.png
+*.zip
+*.tar.gz
+*.tar
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.ckpt
+*.pth
+*.bin
+*.pt
+*.safetensors
+
+# Google Earth Engine credentials
+*.json
+!package.json
+!requirements.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+wandb/
+mlruns/
