@@ -274,10 +274,15 @@ Configuración final (run 11, seleccionada tras grid search + experimentos post-
 ## Autoría
 
 **Autor:** Mobin Enrique Akhtar Khavari Escobar
+
 **Tutora:** Dra. Liz Báez Lovera
+
 **Institución:** UCNSA — Campus Guairá, Unidad Académica Ciencias y Tecnología
+
 **Carrera:** Ingeniería Informática
+
 **Ubicación:** Villarrica del Espíritu Santo, Paraguay
+
 
 ---
 
