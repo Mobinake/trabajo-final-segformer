@@ -8,7 +8,7 @@ CORRECCIONES vs version original:
      Antes mask_to_class usaba R(70-110),G(190-220),B(55-95) pero la inferencia usaba R<50,G>100,B<50
      que NO detecta el color real RGB(88,207,74) porque R=88>50 y B=74>50. Resultado: IoU=0 en eval.
   2. reduce_labels=False explicito en SegformerImageProcessor.
-     Si el checkpoint nvidia/mit-b3 tiene reduce_labels=True (viene de ADE20k), resta 1 a los labels:
+     Si el checkpoint nvidia/segformer-b3-finetuned-ade-512-512 tiene reduce_labels=True (viene de ADE20k), resta 1 a los labels:
      0(background)->255(ignore), 1(cana)->0. El modelo entrenaria con 1 sola clase efectiva. SILENCIOSO.
   3. Split 70/15/15 (train/val/TEST) en vez de 80/20 sin test. Plan del vault: 359/77/77.
   4. Data augmentation con albumentations (flip, rotacion, brightness). 513 imagenes lo necesitan.
@@ -217,7 +217,7 @@ labels = ["background", "sugar_cane"]
 id2label = {0: "background", 1: "sugar_cane"}
 label2id = {"background": 0, "sugar_cane": 1}
 
-model_checkpoint = "nvidia/mit-b3"
+model_checkpoint = "nvidia/segformer-b3-finetuned-ade-512-512"
 
 # CORRECCION CRITICA: reduce_labels=False EXPLICITO
 # El checkpoint viene de ADE20k donde reduce_labels=True resta 1 a los labels.
