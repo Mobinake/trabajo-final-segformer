@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""sugarcane_segformer_v2_CORREGIDO.ipynb
+"""sugarcane_segformer_v3.py
 
 Fine-Tuning SegFormer (MIT-B3) para segmentacion de cana de azucar con Sentinel-2.
 
@@ -12,7 +12,7 @@ CORRECCIONES vs version original:
      0(background)->255(ignore), 1(cana)->0. El modelo entrenaria con 1 sola clase efectiva. SILENCIOSO.
   3. Split 70/15/15 (train/val/TEST) en vez de 80/20 sin test. Plan del vault: 359/77/77.
   4. Data augmentation con albumentations (flip, rotacion, brightness). 513 imagenes lo necesitan.
-  5. EarlyStoppingCallback(patience=10) para evitar overfitting en 50 epochs.
+  5. EarlyStoppingCallback(patience=30) para evitar overfitting en 500 epochs.
   6. max_grad_norm=1.0 y seed=42 explicitos en TrainingArguments.
   7. Docstring corregido: MIT-B3 (no B0).
   8. collate_fn explicito para mayor robustez.
@@ -195,7 +195,7 @@ diagnose_mask_colors(MASK_DIR, num_samples=3)
 # %% Cell 6: Split 70/15/15 (train / val / test)
 # ============================================================
 # ANTES era 80/20 (sin test set). El plan del vault es 70/15/15:
-#   513 imagenes -> 359 train / 77 val / 77 test
+#   513 imagenes -> 359 train / 76 val / 78 test
 # El test set NUNCA se usa durante entrenamiento. Se evalua al final.
 # ============================================================
 import torch
@@ -345,15 +345,15 @@ from transformers import TrainingArguments, Trainer, EarlyStoppingCallback
 training_args = TrainingArguments(
     output_dir="segformer-sugarcane",
     learning_rate=6e-5,
-    num_train_epochs=50,
+    num_train_epochs=500,
     per_device_train_batch_size=2,
     per_device_eval_batch_size=4,   # eval puede usar batch mas grande (sin gradientes)
     gradient_accumulation_steps=4,  # batch efectivo = 2*4 = 8
     warmup_steps=50,
     eval_strategy="steps",          # en transformers <4.46 usar "evaluation_strategy"
     save_strategy="steps",
-    eval_steps=50,
-    save_steps=50,
+    eval_steps=200,
+    save_steps=200,
     logging_steps=10,
     save_total_limit=3,
     load_best_model_at_end=True,
@@ -375,9 +375,9 @@ trainer = Trainer(
     eval_dataset=val_ds,
     compute_metrics=compute_metrics,
     data_collator=collate_fn,
-    callbacks=[EarlyStoppingCallback(early_stopping_patience=10)],  # para si mIoU no mejora en 10 evals
+    callbacks=[EarlyStoppingCallback(early_stopping_patience=30)],  # para si mIoU no mejora en 30 evals
 )
-print("Trainer listo con Early Stopping (patience=10)")
+print("Trainer listo con Early Stopping (patience=30)")
 
 # %% Cell 11: Entrenar
 trainer.train()
