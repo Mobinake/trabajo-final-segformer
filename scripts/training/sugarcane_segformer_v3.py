@@ -10,7 +10,7 @@ CORRECCIONES vs version original:
   2. reduce_labels=False explicito en SegformerImageProcessor.
      Si el checkpoint nvidia/segformer-b3-finetuned-ade-512-512 tiene reduce_labels=True (viene de ADE20k), resta 1 a los labels:
      0(background)->255(ignore), 1(cana)->0. El modelo entrenaria con 1 sola clase efectiva. SILENCIOSO.
-  3. Split 70/15/15 (train/val/TEST) en vez de 80/20 sin test. Plan del vault: 359/77/77.
+  3. Split 70/15/15 (train/val/TEST) en vez de 80/20 sin test. Plan del vault: 359/76/78.
   4. Data augmentation con albumentations (flip, rotacion, brightness). 513 imagenes lo necesitan.
   5. EarlyStoppingCallback(patience=30) para evitar overfitting en 500 epochs.
   6. max_grad_norm=1.0 y seed=42 explicitos en TrainingArguments.
@@ -101,11 +101,9 @@ class SugarCaneDataset(Dataset):
     Args:
         image_dir: carpeta con imagenes .jpg
         mask_dir: carpeta con mascaras .png
-        augment: si True, aplica data augmentation (solo para train)
     """
-    def __init__(self, image_dir, mask_dir, augment=False):
+    def __init__(self, image_dir, mask_dir):
         self.image_dir = image_dir
-        self.augment = augment
 
         # Matchear mascaras con imagenes por nombre (sin extension)
         mask_paths = sorted(glob(os.path.join(mask_dir, "*.png")))
@@ -119,17 +117,6 @@ class SugarCaneDataset(Dataset):
                 self.samples.append((img_path, mask_path))
 
         print(f"Pares imagen-mascara cargados: {len(self.samples)}")
-
-        # Augmentacion solo espacial + color jitter (la mascara se transforma espacialmente)
-        if augment:
-            self.transform = A.Compose([
-                A.HorizontalFlip(p=0.5),
-                A.VerticalFlip(p=0.5),
-                A.RandomRotate90(p=0.5),
-                A.RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.2, p=0.3),
-            ])
-        else:
-            self.transform = None
 
     def __len__(self):
         return len(self.samples)
@@ -145,12 +132,6 @@ class SugarCaneDataset(Dataset):
         mask_rgb = cv2.imread(mask_path)
         mask_rgb = cv2.cvtColor(mask_rgb, cv2.COLOR_BGR2RGB)
         mask = mask_rgb_to_class(mask_rgb)  # funcion compartida
-
-        # Aplicar augmentacion (solo train)
-        if self.transform:
-            augmented = self.transform(image=image, mask=mask)
-            image = augmented['image']
-            mask = augmented['mask']
 
         return {"pixel_values": image, "label": mask}
 
@@ -566,7 +547,7 @@ plt.legend(); plt.show()
 
 # %% Cell 18: Evaluacion final en TEST set (nunca visto en entrenamiento)
 # ============================================================
-# NUEVO: el test set (77 imagenes) nunca se uso durante entrenamiento.
+# NUEVO: el test set (78 imagenes) nunca se uso durante entrenamiento.
 # Estas son las metricas finales que van al Capitulo 4 de la tesis.
 # ============================================================
 test_ious = evaluate_set(test_raw, dataset, image_processor, model, device, "test")
