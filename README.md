@@ -95,8 +95,11 @@ Stack: Hugging Face Transformers · albumentations · Google Earth Engine · CVA
 ## Autoría
 
 **Autor:** Mobin Enrique Akhtar Khavari Escobar
+
 **Tutora:** Dra. Liz Báez Lovera
+
 **Institución:** UCNSA — Campus Guairá
+
 **Carrera:** Ingeniería Informática
 
 ## Licencia
