@@ -1,7 +1,7 @@
 ---
 type: project
 subtype: experiment-log
-ejecucion: 12
+ejecucion: 10
 fecha: 2026-07-04
 modelo: SegFormer MiT-B3
 epocas_max: 200
@@ -10,7 +10,7 @@ eval_steps: 200
 estado: completo
 ---
 
-# Ejecución 12 — Run 10: eval_steps=200, patience=30, max_epochs=200
+# Ejecución 10 — Run 10: eval_steps=200, patience=30, max_epochs=200
 
 > Run posterior al grid search. Toma la mejor configuración del grid (run 09: eval_steps=200, patience=30) y duplica las épocas máximas de 100 a 200 para evaluar si el modelo sigue mejorando con más entrenamiento. Fecha: 4 de julio de 2026. Notebook: `sugarcane_segformer_v3.ipynb` ejecutado en Google Colab (GPU T4). El usuario pegó el `.ipynb` inline en el chat con todas las métricas.
 
@@ -174,9 +174,6 @@ estado: completo
 - **Candidata a ser reportada en el manuscrito** como configuración final, superando a ejec. 11 (la mejor del grid search).
 
 ## 🔗 Notas relacionadas
-- [[ejecucion-10-mitb3-100epocas-patience20-steps200]] — ejecución 10, misma config con 100 épocas y patience=20
-- [[ejecucion-11-mitb3-100epocas-patience30-steps200]] — ejecución 11, misma config con 100 épocas y patience=30
-- [[grid-search-steps-patience]] — script y grilla completa del grid search
-- [[README]] — índice de todas las ejecuciones
-- [[04 - Resultados y Validación]] — consolidación final para el manuscrito
-- [[08 - Configuración Técnica]] — parámetros del script
+- ejecucion-09-mitb3-100epocas-patience30-steps200 — mejor run del grid
+- ejecucion-11-mitb3-300epocas-patience30-steps200 — siguiente run post-grid
+- README — índice

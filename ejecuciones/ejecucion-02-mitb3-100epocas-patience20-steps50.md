@@ -1,7 +1,7 @@
 ---
 type: project
 subtype: experiment-log
-ejecucion: 04
+ejecucion: 02
 fecha: 2026-06-27
 modelo: SegFormer MiT-B3
 epocas_max: 100
@@ -10,7 +10,7 @@ eval_steps: 50
 estado: completo
 ---
 
-# Ejecución 04 — Run 04: eval_steps=50, patience=20, max_epochs=100
+# Ejecución 02 — Run 04: eval_steps=50, patience=20, max_epochs=100
 
 > Grid search de la tutora (TODO 1, 27-06-2026). Segunda run del grid 3×3. Fecha: 27 de junio de 2026. Notebook: `sugarcane_segformer_v3.ipynb` ejecutado en Google Colab (GPU T4).
 
@@ -236,10 +236,7 @@ estado: completo
 > **Conclusión:** con patience=20 (vs patience=10 en ejec. 03), el modelo corrió 32 épocas más (100 vs 67.78) pero el mIoU test fue esencialmente igual (0.8816 vs 0.8828, -0.0012). Esto confirma que patience=10 ya era suficiente para encontrar un buen punto de corte, y aumentar a 20 solo prolonga el entrenamiento sin beneficio. Comparado con ejec. 02 (patience=50, también 100 épocas), esta run obtuvo peor test (0.8816 vs 0.8903), sugiriendo que la variabilidad entre runs con mismos hiperparámetros pero distinto patience puede deberse a factores estocásticos. El plateau visible a partir de step ~2450 indica que el modelo converge temprano y entrenar más allá de ~2500 pasos no aporta mejora significativa.
 
 ## 🔗 Notas relacionadas
-- [[ejecucion-01-mitb3-50epocas-patience10]] — ejecución 01, baseline
-- [[ejecucion-02-mitb3-100epocas-patience50]] — ejecución 02, mismo max_epochs pero patience=50
-- [[ejecucion-03-mitb3-100epocas-patience10-steps50]] — ejecución 03, mismo max_epochs pero patience=10
-- [[grid-search-steps-patience]] — script y grilla completa del grid search
-- [[README]] — índice de todas las ejecuciones
-- [[04 - Resultados y Validación]] — consolidación final para el manuscrito
-- [[08 - Configuración Técnica]] — parámetros del script
+- ejecucion-01-mitb3-100epocas-patience10-steps50 — run anterior
+- ejecucion-03-mitb3-100epocas-patience30-steps50 — siguiente run
+- grid-search-steps-patience — grid 1-9
+- README — índice

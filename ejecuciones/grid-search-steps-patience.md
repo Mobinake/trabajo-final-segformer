@@ -5,7 +5,7 @@ fecha: 2026-06-27
 proposito: Grid search 3x3 de eval_steps (50, 100, 200) x early_stopping_patience (10, 20, 30). Total 9 runs. Script completo para correr en Google Colab.
 ---
 
-# Grid Search — eval_steps x patience (Runs 03-11)
+# Grid Search — eval_steps x patience (Runs 01-09)
 
 > **Tarea de la tutora (27-06-2026):** probar variaciones de steps (50, 100, 200) y paciencia (10, 20, 30). Registrar métricas en tabla comparativa.
 
@@ -13,30 +13,30 @@ proposito: Grid search 3x3 de eval_steps (50, 100, 200) x early_stopping_patienc
 
 | | patience=10 | patience=20 | patience=30 |
 |---|---|---|---|
-| steps=50 | Run 03 | Run 04 | Run 05 |
-| steps=100 | Run 06 | Run 07 | Run 8 |
-| steps=200 | Run 9 | Run 10 | Run 11 |
+| steps=50 | Run 01 | Run 02 | Run 03 |
+| steps=100 | Run 04 | Run 05 | Run 06 |
+| steps=200 | Run 07 | Run 08 | Run 09 |
 
 **Todo lo demás constante:** lr=6e-5, batch=2, grad_accum=4, warmup=50, seed=42, fp16=True, num_train_epochs=100, metric_for_best_model=mean_iou.
 
 ## Script para Google Colab
 
-> Pegar DESPUES del setup del script `sugarcane_segformer_v3.py` (dataset, compute_metrics ampliado, collate_fn ya definidos). Ver `08 - Configuración Técnica` § "compute_metrics ampliado" para la version ampliada de metricas.
+> Pegar DESPUES del setup del notebook `sugarcane_segformer_v3.ipynb` (dataset, compute_metrics ampliado, collate_fn ya definidos). Ver `08 - Configuración Técnica` § "compute_metrics ampliado" para la version ampliada de metricas.
 
 ```python
 from transformers import SegformerForSemanticSegmentation, TrainingArguments, Trainer, EarlyStoppingCallback
 import json, os
 
 GRID = [
-    {"eval_steps": 50,  "patience": 10, "label": "run03_steps50_pat10"},
-    {"eval_steps": 50,  "patience": 20, "label": "run04_steps50_pat20"},
-    {"eval_steps": 50,  "patience": 30, "label": "run05_steps50_pat30"},
-    {"eval_steps": 100, "patience": 10, "label": "run06_steps100_pat10"},
-    {"eval_steps": 100, "patience": 20, "label": "run07_steps100_pat20"},
-    {"eval_steps": 100, "patience": 30, "label": "run08_steps100_pat30"},
-    {"eval_steps": 200, "patience": 10, "label": "run09_steps200_pat10"},
-    {"eval_steps": 200, "patience": 20, "label": "run10_steps200_pat20"},
-    {"eval_steps": 200, "patience": 30, "label": "run11_steps200_pat30"},
+    {"eval_steps": 50,  "patience": 10, "label": "run01_steps50_pat10"},
+    {"eval_steps": 50,  "patience": 20, "label": "run02_steps50_pat20"},
+    {"eval_steps": 50,  "patience": 30, "label": "run03_steps50_pat30"},
+    {"eval_steps": 100, "patience": 10, "label": "run04_steps100_pat10"},
+    {"eval_steps": 100, "patience": 20, "label": "run05_steps100_pat20"},
+    {"eval_steps": 100, "patience": 30, "label": "run06_steps100_pat30"},
+    {"eval_steps": 200, "patience": 10, "label": "run07_steps200_pat10"},
+    {"eval_steps": 200, "patience": 20, "label": "run08_steps200_pat20"},
+    {"eval_steps": 200, "patience": 30, "label": "run09_steps200_pat30"},
 ]
 
 RESULTS = []
@@ -143,6 +143,6 @@ print(df.to_string())
 > Pendiente hasta que el usuario corra el grid en Colab. Cuando lleguen los resultados, actualizar la tabla comparativa en `README.md` de este directorio y crear archivos individuales por cada run si hay hallazgos importantes.
 
 ## 🔗 Notas relacionadas
-- [[README]] — tabla comparativa de todas las ejecuciones
-- [[08 - Configuración Técnica]] — explicación de TrainingArguments + compute_metrics ampliado
-- [[04 - Resultados y Validación]] — métricas que entraron al manuscrito
+- README — tabla comparativa de todas las ejecuciones
+- 08 - Configuración Técnica — explicación de TrainingArguments + compute_metrics ampliado
+- 04 - Resultados y Validación — métricas que entraron al manuscrito

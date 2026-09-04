@@ -1,7 +1,7 @@
 ---
 type: project
 subtype: experiment-log
-ejecucion: 05
+ejecucion: 03
 fecha: 2026-06-27
 modelo: SegFormer MiT-B3
 epocas_max: 100
@@ -10,7 +10,7 @@ eval_steps: 50
 estado: completo
 ---
 
-# Ejecución 05 — Run 05: eval_steps=50, patience=30, max_epochs=100
+# Ejecución 03 — Run 05: eval_steps=50, patience=30, max_epochs=100
 
 > Grid search de la tutora (TODO 1, 27-06-2026). Tercera run del grid 3×3. Fecha: 27 de junio de 2026. Notebook: `sugarcane_segformer_v3.ipynb` ejecutado en Google Colab (GPU T4). El usuario pegó el `.ipynb` inline en el chat con todas las métricas (TrainOutput + tabla de progreso + Trainer evaluate + evaluate_set).
 
@@ -239,11 +239,7 @@ estado: completo
 > **Conclusión del bloque steps=50:** con eval_steps=50, las tres variantes de patience (10, 20, 30) producen resultados equivalentes en test (0.8816-0.8861, Δ < 0.005). Patience=10 ya encuentra un buen punto de corte en step 3050; aumentar patience solo prolonga el entrenamiento sin mejora significativa. Ejec. 02 (patience=50, fuera del grid pero con mismos parámetros base) sigue siendo la mejor en test (0.8903), sugiriendo que la variabilidad entre runs es del orden de ±0.005 y que no hay un efecto claro de patience sobre el rendimiento final cuando eval_steps=50.
 
 ## 🔗 Notas relacionadas
-- [[ejecucion-01-mitb3-50epocas-patience10]] — ejecución 01, baseline
-- [[ejecucion-02-mitb3-100epocas-patience50]] — ejecución 02, mismo max_epochs pero patience=50
-- [[ejecucion-03-mitb3-100epocas-patience10-steps50]] — ejecución 03, patience=10 (bloque steps=50)
-- [[ejecucion-04-mitb3-100epocas-patience20-steps50]] — ejecución 04, patience=20 (bloque steps=50)
-- [[grid-search-steps-patience]] — script y grilla completa del grid search
-- [[README]] — índice de todas las ejecuciones
-- [[04 - Resultados y Validación]] — consolidación final para el manuscrito
-- [[08 - Configuración Técnica]] — parámetros del script
+- ejecucion-02-mitb3-100epocas-patience20-steps50 — run anterior
+- ejecucion-04-mitb3-100epocas-patience20-steps100 — siguiente run
+- grid-search-steps-patience — grid 1-9
+- README — índice

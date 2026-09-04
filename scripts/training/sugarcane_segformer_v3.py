@@ -10,7 +10,7 @@ CORRECCIONES vs version original:
   2. reduce_labels=False explicito en SegformerImageProcessor.
      Si el checkpoint nvidia/segformer-b3-finetuned-ade-512-512 tiene reduce_labels=True (viene de ADE20k), resta 1 a los labels:
      0(background)->255(ignore), 1(cana)->0. El modelo entrenaria con 1 sola clase efectiva. SILENCIOSO.
-  3. Split 70/15/15 (train/val/TEST) en vez de 80/20 sin test. Plan del vault: 359/76/78.
+  3. Split 70/15/15 (train/val/TEST) en vez de 80/20 sin test. Split real: 359/76/78.
   4. Data augmentation con albumentations (flip, rotacion, brightness). 513 imagenes lo necesitan.
   5. EarlyStoppingCallback(patience=30) para evitar overfitting en 500 epochs.
   6. max_grad_norm=1.0 y seed=42 explicitos en TrainingArguments.
